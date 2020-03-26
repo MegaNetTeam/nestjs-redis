@@ -40,16 +40,16 @@ exports.createClient = () => ({
         let defaultKey = uuid();
         if (Array.isArray(options)) {
             yield Promise.all(options.map((o) => __awaiter(this, void 0, void 0, function* () {
-                const key = o.name || defaultKey;
+                const key = o.id || defaultKey;
                 if (clients.has(key)) {
-                    throw new RedisClientError(`${o.name || 'default'} client is exists`);
+                    throw new RedisClientError(`${o.id || 'default'} client is exists`);
                 }
                 clients.set(key, yield getClient(o));
             })));
         }
         else {
-            if (options.name && options.name.length !== 0) {
-                defaultKey = options.name;
+            if (options.id && options.id.length !== 0) {
+                defaultKey = options.id;
             }
             clients.set(defaultKey, yield getClient(options));
         }

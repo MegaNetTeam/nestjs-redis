@@ -30,16 +30,16 @@ export const createClient = (): Provider => ({
     if (Array.isArray(options)) {
       await Promise.all(
         options.map(async o => {
-          const key = o.name || defaultKey;
+          const key = o.id || defaultKey;
           if (clients.has(key)) {
-            throw new RedisClientError(`${o.name || 'default'} client is exists`);
+            throw new RedisClientError(`${o.id || 'default'} client is exists`);
           }
           clients.set(key, await getClient(o));
         }),
       );
     } else {
-      if (options.name && options.name.length !== 0) {
-        defaultKey = options.name;
+      if (options.id && options.id.length !== 0) {
+        defaultKey = options.id;
       }
       clients.set(defaultKey, await getClient(options));
     }
