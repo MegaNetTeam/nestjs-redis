@@ -43,8 +43,8 @@ let RedisCoreModule = RedisCoreModule_1 = class RedisCoreModule {
     }
     onModuleDestroy() {
         const closeConnection = ({ clients, defaultKey }) => options => {
-            const name = options.name || defaultKey;
-            const client = clients.get(name);
+            const id = options.id || defaultKey;
+            const client = clients.get(id);
             if (client && !options.keepAlive) {
                 client.disconnect();
             }
